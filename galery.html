@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:'Poppins',sans-serif;
+  background:#050508;
+  color:white;
+
+  opacity:0;
+  transform:scale(0.95);
+  filter:blur(10px);
+  animation:open 0.7s ease forwards;
+}
+
+@keyframes open {
+  to {
+    opacity:1;
+    transform:scale(1);
+    filter:blur(0);
+  }
+}
+
+/* BG NEON */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left, rgba(140,0,255,0.3), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(255,0,200,0.2), transparent 40%);
+}
+
+/* HEADER */
+header {
+  position:sticky;
+  top:0;
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+}
+
+header a {
+  color:white;
+  text-decoration:none;
+  font-size:18px;
+}
+
+/* BANNER VIDEO */
+.banner {
+  height:160px;
+  margin:15px;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+}
+
+.banner video {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.banner::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, transparent, black);
+}
+
+/* GALLERY */
+.gallery {
+  column-count:2;
+  column-gap:10px;
+  padding:10px;
+}
+
+.gallery img {
+  width:100%;
+  margin-bottom:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.3s;
+
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.gallery img.show {
+  animation:show 0.6s forwards;
+}
+
+@keyframes show {
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* HOVER */
+.gallery img:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 20px #a100ff;
+}
+
+/* VIEWER */
+.viewer {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.viewer img {
+  max-width:90%;
+  max-height:90%;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">🏠 Home</a>
+  <div>Gallery</div>
+</header>
+
+<!-- VIDEO BANNER -->
+<div class="banner">
+  <video autoplay muted loop playsinline>
+    <source src="liar.mp4" type="video/mp4">
+  </video>
+</div>
+
+<br>
+<br>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <img src="a.jpeg" onclick="openImg(this.src)">
+  <img src="b.jpeg" onclick="openImg(this.src)">
+  <img src="c.jpeg" onclick="openImg(this.src)">
+  <img src="d.jpeg" onclick="openImg(this.src)">
+  <img src="e.jpeg" onclick="openImg(this.src)">
+  <img src="f.jpg" onclick="openImg(this.src)">
+  <img src="g.jpg" onclick="openImg(this.src)">
+  <img src="h.jpg" onclick="openImg(this.src)">
+  <img src="i.jpg" onclick="openImg(this.src)">
+  <img src="j.jpg" onclick="openImg(this.src)">
+  <img src="k.jpg" onclick="openImg(this.src)">
+  <img src="l.jpg" onclick="openImg(this.src)">
+  <img src="m.jpg" onclick="openImg(this.src)">
+  <img src="n.jpg" onclick="openImg(this.src)">
+  <img src="o.jpg" onclick="openImg(this.src)">
+  <img src="p.jpg" onclick="openImg(this.src)">
+  <img src="q.jpg" onclick="openImg(this.src)">
+</div>
+
+<!-- VIEW -->
+<div class="viewer" onclick="closeImg()">
+  <img id="viewImg">
+</div>
+
+<script>
+/* ANIMASI MASUK */
+window.onload = () => {
+  let imgs = document.querySelectorAll(".gallery img");
+  imgs.forEach((img,i)=>{
+    setTimeout(()=>{
+      img.classList.add("show");
+    }, i*150);
+  });
+};
+
+/* VIEW */
+function openImg(src){
+  document.getElementById("viewImg").src = src;
+  document.querySelector(".viewer").style.display="flex";
+}
+
+function closeImg(){
+  document.querySelector(".viewer").style.display="none";
+}
+</script>
+
+</body>
+</html>
